@@ -4,10 +4,10 @@
 <meta name="author" content="Coderthemes">
 
 <!-- App Favicon -->
-<link rel="shortcut icon" href="<?= base_url('assets/');?>assets/images/favicon.ico">
+<link rel="shortcut icon" href="<?= base_url('assets/assets/images/');?>favicon.ico">
 
 <!-- App title -->
-<title>Uplon - Bootstrap 4 Responsive Admin Dashboard Template</title>
+<title>Pendaftaran Mahasiswa Baru</title>
 
 <!--Morris Chart CSS -->
 <link rel="stylesheet" href="<?= base_url('assets/');?>assets/plugins/morris/morris.css">

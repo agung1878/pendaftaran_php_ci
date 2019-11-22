@@ -12,11 +12,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="<?= base_url('form');?>" class="waves-effect"><span class="badge badge-pill badge-primary float-right"></span><i class="zmdi zmdi-account-add"></i><span> Tambah Entry </span> </a>
-                </li>
-
-                <li class="has_sub">
-                    <a href="<?= base_url('listController');?>" class="waves-effect"><span class="badge badge-pill badge-primary float-right"></span><i class="zmdi zmdi-format-list-bulleted"></i><span> List Entry </span> </a>
+                    <a href="<?= base_url('newMhsController');?>" class="waves-effect"><span class="badge badge-pill badge-primary float-right"></span><i class="zmdi zmdi-format-list-bulleted"></i><span>P M B</span> </a>
                 </li>
 
             </ul>

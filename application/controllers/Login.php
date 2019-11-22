@@ -36,7 +36,7 @@ class Login extends CI_Controller
  
 			redirect(base_url("dashboard"));
 		} else{
-			echo "Username dan password salah !";
+			 $this->session->set_flashdata('message', 'Username tidak ditemukan');
 		}
 	}
 
