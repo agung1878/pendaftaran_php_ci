@@ -1,48 +1,53 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 
  */
-class Login extends CI_Controller
-{
-	function __construct(){
-		parent::__construct();		
-		$this->load->model('auth');
- 
-	}
+class Login extends CI_Controller {
 
-	public function  index()
-	{
-		$this->load->view('login.php');
-	}
+    function __construct() {
+        parent::__construct();
+        $this->load->model('userModel');
+    }
 
-	function action_auth(){
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$where = array(
-			'username' => $username,
-			'password' => md5($password)
-		);
-		$cek = $this->auth->check_auth("t_user_admin", $where)->num_rows();
-		if ($cek > 0) {
-			
-			$data_session = array(
-				'nama' => $username,
-				'status' => "login"
-			);
+    public function index() {
+        $this->load->view('login.php');
+    }
 
-			$this->session->set_userdata($data_session);
- 
-			redirect(base_url("dashboard"));
-		} else{
-			 $this->session->set_flashdata('message', 'Username tidak ditemukan');
-		}
-	}
+    function auth() {
+        $username = $this->input->post('username', TRUE);
+        $password = md5($this->input->post('password', TRUE));
+        $validate = $this->userModel->validate($username, $password);
+        if ($validate->num_rows() > 0) {
+            $data = $validate->row_array();
+            $id = $data['id'];
+            $email = $data['email'];
+            $username = $data['username'];
+            $role = $data['role'];
+            $sesdata = array(
+                'username' => $username,
+                'email' => $email,
+                'role' => $role,
+                'logged_in' => TRUE
+            );
+            $this->session->set_userdata($sesdata);
+            // access login for admin
+            if ($role === 'admin') {
+                redirect('dashboard');
+            } else if ($role === 'approval') {
+                redirect('dashboardApproval');
+            }  
+        } else {
+            echo $this->session->set_flashdata('msg', 'Username or Password is Wrong');
+            redirect('login');
+        }
+    }
 
-	function logout(){
-		$this->session->sess_destroy();
-		redirect(base_url('login'));
-	}
+    function logout() {
+        $this->session->sess_destroy();
+        redirect('login');
+    }
+
 }
-

@@ -28,7 +28,7 @@
                     </a>
                     
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="<?php echo base_url('login/logout'); ?>" class="dropdown-item notify-item">
                         <i class="zmdi zmdi-power"></i> <span>Logout</span>
                     </a>
 

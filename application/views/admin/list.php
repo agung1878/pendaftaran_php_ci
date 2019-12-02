@@ -74,10 +74,10 @@
                                                             <td>" . $data->no_tlp . "</td>
                                                             <td>" . $data->email . "</td>
                                                             <td>
-                                                                <a href='" . base_url("newMhsController/ubah/" . $data->id) . "'>
+                                                                <a href='" . base_url("newMhsController/ubah/" . $data->id_new_mhs) . "'>
                                                                     <button class='btn waves-effect waves-light btn-success'>Edit</button>
                                                                 </a>
-                                                                <a href='" . base_url("newMhsController/hapus/" . $data->id) . "'>
+                                                                <a href='" . base_url("newMhsController/hapus/" . $data->id_new_mhs) . "'>
                                                                     <button class='btn waves-effect waves-light btn-danger'>Hapus</button>
                                                                 </a>
                                                             </td>

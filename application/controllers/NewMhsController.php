@@ -13,18 +13,24 @@ class NewMhsController extends CI_Controller {
 
     public function index() {
         $data['t_new_mhs'] = $this->New_mhs_model->view();
-        $this->load->view('list', $data);
+        
+         if ($this->session->userdata('role') === 'admin') {
+            $this->load->view('admin/list', $data);
+        } else {
+            echo "Access Denied";
+        }
     }
 
     public function tambah() {
         if ($this->input->post('submit')) { // Jika user mengklik tombol submit yang ada di form
             if ($this->New_mhs_model->validation("save")) { // Jika validasi sukses atau hasil validasi adalah TRUE
                 $this->New_mhs_model->save(); // Panggil fungsi save() yang ada di SiswaModel.php
+                $this->New_mhs_model->saveApprovalStatus(); // Panggil fungsi save() yang ada di SiswaModel.php
                 redirect('newMhsController');
             }
         }
 
-        $this->load->view('form');
+        $this->load->view('admin/form');
     }
 
     public function ubah($id) {
@@ -35,8 +41,8 @@ class NewMhsController extends CI_Controller {
             }
         }
 
-        $data['t_new_mhs'] = $this->New_mhs_model->view_by($nis);
-        $this->load->view('', $data);
+        $data['t_new_mhs'] = $this->New_mhs_model->view_by($id);
+        $this->load->view('admin/form_ubah', $data);
     }
 
     public function hapus($id) {
