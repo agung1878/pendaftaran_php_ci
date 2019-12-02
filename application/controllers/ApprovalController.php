@@ -22,9 +22,9 @@ class ApprovalController extends CI_Controller {
     }
 
     public function index() {
-        
-        $data['t_approval'] = $this->approval_model->tampil_data();
-        
+
+        $data['t_approval'] = $this->approval_model->tampil_data_by_status_wating();
+
         if ($this->session->userdata('role') === 'approval') {
             $this->load->view('approval/list_approval', $data);
         } else {
@@ -32,8 +32,35 @@ class ApprovalController extends CI_Controller {
         }
     }
 
+    public function accepted() {
+        $data['t_approval'] = $this->approval_model->tampil_data_by_status_accepted();
+
+        if ($this->session->userdata('role') === 'approval') {
+            $this->load->view('approval/list_accepted', $data);
+        } else {
+            echo "Access Denied";
+        }
+    }
+
+    public function rejected() {
+        $data['t_approval'] = $this->approval_model->tampil_data_by_status_rejected();
+
+        if ($this->session->userdata('role') === 'approval') {
+            $this->load->view('approval/list_accepted', $data);
+        } else {
+            echo "Access Denied";
+        }
+    }
+
     public function accept($id_approval) {
         $this->approval_model->accept($id_approval); // Panggil fungsi delete() yang ada di SiswaModel.php
+        echo $this->session->set_flashdata('msg', 'Calon mahasiswa berhasil di setujui.');
+        redirect('approvalController');
+    }
+
+    public function reject($id_approval) {
+        $this->approval_model->reject($id_approval); // Panggil fungsi delete() yang ada di SiswaModel.php
+        echo $this->session->set_flashdata('msg', 'Calon mahasiswa telah di reject.');
         redirect('approvalController');
     }
 
@@ -41,8 +68,8 @@ class ApprovalController extends CI_Controller {
         $data['t_approval'] = $this->approval_model->tampil_data_by_id($id);
         $this->load->view('approval/detail', $data);
     }
-    
-    public function modalDetail($id){
+
+    public function modalDetail($id) {
         $data['t_approval'] = $this->approval_model->tampil_data_by_id($id);
         echo json_encode($data);
     }

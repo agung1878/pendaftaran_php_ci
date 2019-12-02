@@ -108,5 +108,5 @@
 
             </div>
         </div>
-    </div> <!-- end nicescroll -->
+    </div> 
 </div>

@@ -14,6 +14,14 @@
                 <li class="has_sub">
                     <a href="<?= base_url('approvalController'); ?>" class="waves-effect"><span class="badge badge-pill badge-primary float-right"></span><i class="zmdi zmdi-format-list-bulleted"></i><span>Approval</span> </a>
                 </li>
+                
+                <li class="has_sub">
+                    <a href="<?= base_url('approvalController/accepted'); ?>" class="waves-effect"><span class="badge badge-pill badge-primary float-right"></span><i class="zmdi zmdi-badge-check"></i><span>List Accepted</span> </a>
+                </li>
+                
+                <li class="has_sub">
+                    <a href="<?= base_url('approvalController/rejected'); ?>" class="waves-effect"><span class="badge badge-pill badge-primary float-right"></span><i class="zmdi zmdi-block"></i><span>List Rejected</span> </a>
+                </li>
 
             </ul>
             <div class="clearfix"></div>

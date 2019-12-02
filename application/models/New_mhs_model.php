@@ -43,7 +43,7 @@ class New_mhs_model extends CI_Model {
 
     // Fungsi untuk melakukan simpan data ke tabel siswa
     public function save() {
-
+        
         $config['upload_path'] = './images/ijazah/';
         $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = '2048';
@@ -105,12 +105,14 @@ class New_mhs_model extends CI_Model {
     
     public function saveApprovalStatus() {
 
-        $status = FALSE;
+        $active = FALSE;
+        $status = 'waiting';
         
         $data = array(
             "id_approval" => $this->input->post('input_id_approval'),
             "id_new_mhs" => $this->input->post('input_id'),
-            "status" => $status
+            "status" => $status,
+            "active" => $active
         );
 
         $this->db->insert('t_approval', $data); // Untuk mengeksekusi perintah insert data

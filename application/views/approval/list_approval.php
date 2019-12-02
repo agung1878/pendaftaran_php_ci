@@ -41,6 +41,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-box">
+                                    <?php if(isset($_SESSION['msg'])) {?> <div class="alert alert-warning" role="alert"><?php echo $this->session->flashdata('msg'); ?></div> <?php } ?> 
                                     <div class="table-responsive">
                                         <table class="table mb-0" id="datatable">
                                             <thead class="thead-light">
@@ -72,14 +73,14 @@
                                                                 </a>
                                                                 <button class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#myModal" data-animation="slide" data-overlaySpeed="200" 
                                                                         data-overlayColor="#36404a" data-toggle="tooltip" 
-                                                                        data-placement="top" title="Accept" type="button" onclick="modal_approval('<?= $t->id_approval ?>');">
+                                                                        data-placement="top" title="Accept" type="button" id="btn" onclick="modal_approval('<?= $t->id_approval ?>')">
                                                                     <i class="fa fa-check"></i>
                                                                 </button>
-                                                                <a href="<?= base_url('approvalController/detail/' . $t->id_approval) ?>">
-                                                                    <button class="btn waves-effect waves-light btn-danger" data-toggle="tooltip" data-placement="top" title="Reject">
-                                                                        <i class="fa fa-ban"></i>
-                                                                    </button>
-                                                                </a>
+                                                                <button class="btn btn-danger waves-effect waves-light" data-toggle="modal" data-target="#myModal" data-animation="slide" data-overlaySpeed="200" 
+                                                                        data-overlayColor="#36404a" data-toggle="tooltip" 
+                                                                        data-placement="top" title="Accept" type="button" id="btn" onclick="modal_approval2('<?= $t->id_approval ?>')">
+                                                                    <i class="fa fa-ban"></i>
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
@@ -98,20 +99,20 @@
                                                         </button>
                                                     </div>
                                                     <div class='modal-body'>
-                                                        <h5>Setujui calon mahasiswa ini ?</h5>
+                                                        <h5 class="question">Setujui calon mahasiswa ini ?</h5>
                                                         <br>
                                                         <h6>Nama : </h6>
-                                                        <p>nama</p>
+                                                        <p class="nama">nama</p>
                                                         <h6>Email : </h6>
-                                                        <p>email</p>
+                                                        <p class="email">email</p>
                                                         <h6>Alamat : </h6>
-                                                        <p>alamat</p>
+                                                        <p class="alamat">alamat</p>
                                                     </div>
                                                     <div class='modal-footer'>
-                                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                                                        <a href='" . base_url("approvalController/accept/" . $data->id_approval) . "'>
-                                                            <button type='button' class='btn btn-primary'>Ya</button>
-                                                        </a>    
+                                                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+                                                            <a id="id_approval" >
+                                                                <button type='submit' class='btn btn-primary'>Ya</button>
+                                                            </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,42 +127,47 @@
             </div>
 
             <?php $this->load->view("_partials/menu.php") ?>
-            /Right-bar 
+           
 
             <?php $this->load->view("_partials/footer.php") ?>
 
         </div>
-        <!-- END wrapper 
 
         <?php $this->load->view("_partials/js.php") ?>
         <script src="<?= base_url('assets/'); ?>assets/plugins/responsive-table/js/rwd-table.min.js"></script>
-        <!-- Modal-Effect -->
         <script src="<?= base_url('assets/'); ?>assets/plugins/custombox/js/custombox.min.js"></script>
         <script src="<?= base_url('assets/'); ?>assets/plugins/custombox/js/custombox.legacy.min.js"></script>
         <script>
-                                                                    $('.table-rep-plugin').responsiveTable('update');
+           $('.table-rep-plugin').responsiveTable('update');
         </script>
 
         <script type="text/javascript">
-
-            window.modal_approval = function(id) {
-                //Ajax Load data from ajax
-                $.ajax({
+            
+            var modal_approval;
+            var modal_approval2;
+            
+            $(document).ready(function () {
+                modal_approval = function(id){
+                    console.log(id);
+                    $.ajax({
                     url: "<?php echo site_url('approvalController/modalDetail/') ?>/" + id,
                     type: "GET",
-                    dataType: "JSON",
+                    dataType: "JSON",           
                     success: function (data)
                     {
-                        $nama = .val(data.nama);
+                        console.log(data);
+                        console.log(data.t_approval[0].nama);
+                        
                         $('[name="id"]').val(data.id_approval);
                         $('[name="nama"]').val(data.nama);
                         $('[name="email"]').val(data.email);
                         
-                        console.log($nama);
-                       
 //                        $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
 //                        $('.modal-title').text('Edit Data Pengguna'); // Set title to Bootstrap modal title
-                        
+                        $('.nama').text(data.t_approval[0].nama);
+                        $('.email').text(data.t_approval[0].email);
+                        $('.alamat').text(data.t_approval[0].alamat);
+                        $('#id_approval').prop('href', "<?php echo site_url('approvalController/accept/') ?>" + id);
 
                     },
                     error: function (jqXHR, textStatus, errorThrown)
@@ -169,7 +175,41 @@
                         alert('Error get data from ajax');
                     }
                 });
-            }
+                }
+            });
+            
+            $(document).ready(function () {
+                modal_approval2 = function(id){
+                    console.log(id);
+                    $.ajax({
+                    url: "<?php echo site_url('approvalController/modalDetail/') ?>/" + id,
+                    type: "GET",
+                    dataType: "JSON",           
+                    success: function (data)
+                    {
+                        console.log(data);
+                        console.log(data.t_approval[0].nama);
+                        
+                        $('[name="id"]').val(data.id_approval);
+                        $('[name="nama"]').val(data.nama);
+                        $('[name="email"]').val(data.email);
+                        
+//                        $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+//                        $('.modal-title').text('Edit Data Pengguna'); // Set title to Bootstrap modal title
+                        $('.question').text('Reject calon mahasiswa ini ? ');
+                        $('.nama').text(data.t_approval[0].nama);
+                        $('.email').text(data.t_approval[0].email);
+                        $('.alamat').text(data.t_approval[0].alamat);
+                        $('#id_approval').prop('href', "<?php echo site_url('approvalController/reject/') ?>" + id);
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error get data from ajax');
+                    }
+                });
+                }
+            });
 
         </script>
     </body>
