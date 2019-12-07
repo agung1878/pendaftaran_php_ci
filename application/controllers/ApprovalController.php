@@ -31,7 +31,7 @@ class ApprovalController extends CI_Controller {
             echo "Access Denied";
         }
     }
-
+    
     public function accepted() {
         $data['t_approval'] = $this->approval_model->tampil_data_by_status_accepted();
 

@@ -11,9 +11,10 @@
  *
  * @author Chazzy666
  */
-class Approval_model extends CI_Model{
+class Approval_model extends CI_Model {
+
     //put your code here
-    
+
     public function tampil_data() {
         $this->db->select('*');
         $this->db->from('t_approval');
@@ -22,9 +23,44 @@ class Approval_model extends CI_Model{
         $query = $this->db->get()->result();
         return $query;
     }
-    
-     public function tampil_data_by_id($id) {
-       $this->db->select('*');
+
+    public function tampil_jumlah_pendaftar() {
+
+        $query = $this->db->count_all('t_approval');
+
+        return $query;
+    }
+
+    public function tampil_jumlah_waiting() {
+
+        $status = 'waiting';
+        $this->db->count_all_results('t_approval');  // Produces an integer, like 25
+        $this->db->where('status', $status);
+        $this->db->from('t_approval');
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    public function tampil_jumlah_accepted() {
+        $status = 'accepted';
+        $this->db->count_all_results('t_approval');  // Produces an integer, like 25
+        $this->db->where('status', $status);
+        $this->db->from('t_approval');
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    public function tampil_jumlah_rejected() {
+        $status = 'rejected';
+       $this->db->count_all_results('t_approval');  // Produces an integer, like 25
+        $this->db->where('status', $status);
+        $this->db->from('t_approval');
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    public function tampil_data_by_id($id) {
+        $this->db->select('*');
         $this->db->from('t_approval');
         $this->db->join('t_new_mhs', 't_new_mhs.id_new_mhs = t_approval.id_new_mhs');
         $this->db->where('id_approval', $id);
@@ -32,12 +68,12 @@ class Approval_model extends CI_Model{
         $query = $this->db->get()->result();
         return $query;
     }
-    
+
     public function tampil_data_by_status_wating() {
-            
-       $status = 'waiting';
-            
-       $this->db->select('*');
+
+        $status = 'waiting';
+
+        $this->db->select('*');
         $this->db->from('t_approval');
         $this->db->join('t_new_mhs', 't_new_mhs.id_new_mhs = t_approval.id_new_mhs');
         $this->db->where('status', $status);
@@ -45,12 +81,12 @@ class Approval_model extends CI_Model{
         $query = $this->db->get()->result();
         return $query;
     }
-    
+
     public function tampil_data_by_status_accepted() {
-            
-       $status = 'accepted';
-            
-       $this->db->select('*');
+
+        $status = 'accepted';
+
+        $this->db->select('*');
         $this->db->from('t_approval');
         $this->db->join('t_new_mhs', 't_new_mhs.id_new_mhs = t_approval.id_new_mhs');
         $this->db->where('status', $status);
@@ -58,12 +94,12 @@ class Approval_model extends CI_Model{
         $query = $this->db->get()->result();
         return $query;
     }
-    
+
     public function tampil_data_by_status_rejected() {
-            
-       $status = 'rejected';
-            
-       $this->db->select('*');
+
+        $status = 'rejected';
+
+        $this->db->select('*');
         $this->db->from('t_approval');
         $this->db->join('t_new_mhs', 't_new_mhs.id_new_mhs = t_approval.id_new_mhs');
         $this->db->where('status', $status);
@@ -71,9 +107,9 @@ class Approval_model extends CI_Model{
         $query = $this->db->get()->result();
         return $query;
     }
-    
+
     public function accept($id_approval) {
-        
+
         $data = array(
             "status" => 'accepted',
             "active" => true
@@ -82,9 +118,9 @@ class Approval_model extends CI_Model{
         $this->db->where('id_approval', $id_approval);
         $this->db->update('t_approval', $data); // Untuk mengeksekusi perintah update data
     }
-    
+
     public function reject($id_approval) {
-        
+
         $data = array(
             "status" => 'rejected',
             "active" => false
@@ -93,4 +129,5 @@ class Approval_model extends CI_Model{
         $this->db->where('id_approval', $id_approval);
         $this->db->update('t_approval', $data); // Untuk mengeksekusi perintah update data
     }
+
 }

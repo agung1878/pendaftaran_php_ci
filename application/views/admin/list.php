@@ -64,9 +64,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                 <?php
-                                                if (!empty($t_new_mhs)) { // Jika data siswa tidak sama dengan kosong, artinya jika data siswa ada
-                                                    foreach ($t_new_mhs as $data) {
+                                                <?php
+                                                if (!empty($model['t_new_mhs'])) { // Jika data siswa tidak sama dengan kosong, artinya jika data siswa ada
+                                                    foreach ($model['t_new_mhs'] as $data) {
                                                         echo "<tr>
                                                             <td>" . $data->nama . "</td>
                                                             <td>" . $data->jenis_kelamin . "</td>

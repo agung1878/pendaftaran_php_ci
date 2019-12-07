@@ -12,7 +12,7 @@ class NewMhsController extends CI_Controller {
     }
 
     public function index() {
-        $data['t_new_mhs'] = $this->New_mhs_model->view();
+        $data['model'] = $this->New_mhs_model->view();
         
          if ($this->session->userdata('role') === 'admin') {
             $this->load->view('admin/list', $data);

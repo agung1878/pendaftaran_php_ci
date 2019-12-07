@@ -32,7 +32,7 @@
                                 <div class="card-box">
                                     <h4 class="header-title m-t-0 m-b-30">Tambah Pendaftar</h4>
                                     <form action="<?php base_url('newMhsController/ubah') ?>" method="POST" enctype="multipart/form-data">
-                                        <input type="hidden" name="input_id" value="<?php echo $t_new_mhs->id ?>" required="">
+                                        <input type="hidden" name="input_id" value="<?php echo $t_new_mhs->id_new_mhs ?>" required="">
                                         <div class="form-group row">
                                             <label for="nama" class="col-2 col-form-label">Nama</label>
                                             <div class="col-10">
@@ -90,21 +90,27 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label for="example-text-input" class="col-2 col-form-label">Foto 3x4</label>
+                                            <div class="col-10">
+                                                <input type="file" class="dropify" name="input_ijazah" data-height="150" value="<?php echo set_value('input_foto', $t_new_mhs->foto); ?>"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="example-text-input" class="col-2 col-form-label">Ijazah</label>
                                             <div class="col-10">
-                                                <input type="file" class="dropify" name="input_ijazah" data-height="150" value="<?php echo set_value('input_ijazah'); ?>"/>
+                                                <input type="file" class="dropify" name="input_ijazah" data-height="150" value="<?php echo set_value('input_ijazah', $t_new_mhs->ijazah); ?>"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-2 col-form-label">SKHUN</label>
                                             <div class="col-10">
-                                                <input type="file" class="dropify" name="input_skhun" data-height="150" value="<?php echo set_value('input_skhun'); ?>"/>
+                                                <input type="file" class="dropify" name="input_skhun" data-height="150" value="<?php echo set_value('input_skhun', $t_new_mhs->skhun); ?>"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="example-text-input" class="col-2 col-form-label">KTP</label>
                                             <div class="col-10">
-                                                <input type="file" class="dropify" name="input_ktp" data-height="150" value="<?php echo set_value('input_ktp'); ?>"/>
+                                                <input type="file" class="dropify" name="input_ktp" data-height="150" value="<?php echo set_value('input_ktp', $t_new_mhs->ktp); ?>"/>
                                             </div>
                                         </div>
                                         <div class="form-group text-right m-b-0">
@@ -146,7 +152,7 @@
                 'error': 'Ooops, something wrong appended.'
             },
             error: {
-                'fileSize': 'The file size is too big (1M max).'
+                'fileSize': 'The file size is too big (2M max).'
             }
         });
     </script>

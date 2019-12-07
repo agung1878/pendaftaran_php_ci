@@ -1,8 +1,4 @@
 <?php
-
-/**
- * 
- */
 class Auth extends CI_Model {
 
     function validate($username, $password) {
